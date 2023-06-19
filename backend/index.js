@@ -1,5 +1,6 @@
 const exprss = require('express');
 const mysql = require('mysql');
+const cors = require('cors');
 
 const app = exprss();
 const db = mysql.createConnection({
@@ -10,6 +11,7 @@ const db = mysql.createConnection({
 })
 
 app.use(exprss.json());
+app.use(cors());
 
 app.listen(8800, () => {
     console.log('connected to backend!!')

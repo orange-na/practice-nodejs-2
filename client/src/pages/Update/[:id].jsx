@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react"
 
-export default function Add() {
+export default function Update() {
 
     const [book, setBook] = useState({
         title:"",
@@ -17,10 +17,13 @@ export default function Add() {
         console.log(book);
     },[book])
 
+    const bookId = router.asPath.split('/')[2];
+    console.log(router.asPath.split('/')[2]);
+
     const handleClick = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8800/books', book);
+            await axios.put('http://localhost:8800/books/' + bookId , book);
             router.push('/Books');
         } catch (error) {
             console.log(error);
@@ -30,12 +33,12 @@ export default function Add() {
     return (
       <>
       <div className="form">
-        <h1>Add new book</h1>
+        <h1>Update new book</h1>
         <input type="text" placeholder="title" name="title" onChange={ handleChanged } />
         <input type="text" placeholder="desc"  name="desc" onChange={ handleChanged }/>
         <input type="text" placeholder="cover" name="cover" onChange={ handleChanged } />
       </div>
-      <button onClick={ handleClick }>Add</button>
+      <button onClick={ handleClick }>Update</button>
       </>
     )
   }
